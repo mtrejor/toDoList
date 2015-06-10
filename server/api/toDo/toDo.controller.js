@@ -4,7 +4,7 @@ var _ = require('lodash');
 var ToDo = require('./toDo.model');
 
 // Get list of toDos
-exports.index = function(req, res) {  
+exports.index = function(req, res) {   
   ToDo.find(function (err, toDos) {
     if(err) { return handleError(res, err); }
     return res.json(200, toDos);
@@ -13,6 +13,7 @@ exports.index = function(req, res) {
 
 // Get a single toDo
 exports.show = function(req, res) {
+
   ToDo.findById(req.params.id, function (err, toDo) {
     if(err) { return handleError(res, err); }
     if(!toDo) { return res.send(404); }
@@ -21,8 +22,7 @@ exports.show = function(req, res) {
 };
 
 // Creates a new toDo in the DB.
-exports.create = function(req, res) {
-  console.log(req);
+exports.create = function(req, res) {  
   ToDo.create(req.body, function(err, toDo) {
     if(err) { return handleError(res, err); }
     return res.json(201, toDo);
@@ -45,6 +45,7 @@ exports.update = function(req, res) {
 
 // Deletes a toDo from the DB.
 exports.destroy = function(req, res) {
+  console.log(req.params);
   ToDo.findById(req.params.id, function (err, toDo) {
     if(err) { return handleError(res, err); }
     if(!toDo) { return res.send(404); }
